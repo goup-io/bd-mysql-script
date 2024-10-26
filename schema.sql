@@ -1,4 +1,3 @@
-
 USE myStock;
 
 CREATE TABLE acesso_loja (
@@ -176,19 +175,6 @@ CREATE TABLE loja_login (
     FOREIGN KEY (loja_id) REFERENCES loja(id)
 );
 
-CREATE TABLE produto_venda (
-    desconto DOUBLE,
-    etp_id INT,
-    id INT AUTO_INCREMENT NOT NULL,
-    item_promocional TINYINT CHECK (item_promocional BETWEEN 0 AND 1),
-    quantidade INT,
-    valor_unitario DOUBLE,
-    venda_id INT,
-    PRIMARY KEY (id),
-    FOREIGN KEY (etp_id) REFERENCES etp(id),
-    FOREIGN KEY (venda_id) REFERENCES venda(id)
-);
-
 CREATE TABLE redefinir_senha (
     ativo TINYINT NOT NULL,
     id INT AUTO_INCREMENT NOT NULL,
@@ -196,17 +182,6 @@ CREATE TABLE redefinir_senha (
     token VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (login_id) REFERENCES login(id)
-);
-
-CREATE TABLE pagamento (
-    id INT AUTO_INCREMENT NOT NULL,
-    qtd_parcelas INT,
-    tipo_pagamento_id INT,
-    valor DOUBLE,
-    venda_id INT,
-    PRIMARY KEY (id),
-    FOREIGN KEY (tipo_pagamento_id) REFERENCES tipo_pagamento(id),
-    FOREIGN KEY (venda_id) REFERENCES venda(id)
 );
 
 CREATE TABLE venda (
@@ -222,6 +197,31 @@ CREATE TABLE venda (
     FOREIGN KEY (tipo_venda_id) REFERENCES tipo_venda(id),
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
+
+CREATE TABLE produto_venda (
+    desconto DOUBLE,
+    etp_id INT,
+    id INT AUTO_INCREMENT NOT NULL,
+    item_promocional TINYINT CHECK (item_promocional BETWEEN 0 AND 1),
+    quantidade INT,
+    valor_unitario DOUBLE,
+    venda_id INT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (etp_id) REFERENCES etp(id),
+    FOREIGN KEY (venda_id) REFERENCES venda(id)
+);
+
+CREATE TABLE pagamento (
+    id INT AUTO_INCREMENT NOT NULL,
+    qtd_parcelas INT,
+    tipo_pagamento_id INT,
+    valor DOUBLE,
+    venda_id INT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (tipo_pagamento_id) REFERENCES tipo_pagamento(id),
+    FOREIGN KEY (venda_id) REFERENCES venda(id)
+);
+
 
 CREATE TABLE historico_produto (
     id INT AUTO_INCREMENT NOT NULL,
